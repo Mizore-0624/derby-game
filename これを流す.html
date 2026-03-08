@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏇 6年生ダービー 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #f5c518;
+  --gold-dark: #c9920a;
+  --green: #2d7a2d;
+  --green-light: #4aab4a;
+  --red: #e84040;
+  --dark: #0d1117;
+  --dark2: #161b22;
+  --dark3: #21262d;
+  --border: rgba(255,255,255,0.1);
+  --text-dim: rgba(255,255,255,0.5);
+  --race-colors: #e74c3c, #3498db, #2ecc71, #f39c12, #9b59b6, #1abc9c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  background: var(--dark);
+  color: #e6edf3;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BG ── */
+.bg {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245,197,24,0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(46,204,113,0.05), transparent),
+    var(--dark);
+}
+
+.container { position:relative; z-index:1; max-width:900px; margin:0 auto; padding:16px; }
+
+/* ── HEADER ── */
+.header {
+  text-align: center;
+  padding: 28px 0 16px;
+}
+.header-emoji { font-size: 2.2rem; letter-spacing: 6px; }
+.title {
+  font-family: 'Kaisei Decol', serif;
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 4s ease infinite;
+  line-height: 1.1;
+  margin: 6px 0;
+}
+@keyframes goldShimmer {
+  0%,100% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+}
+.subtitle { color: var(--text-dim); font-size:.85rem; letter-spacing:4px; }
+
+/* ── RACE STEPS ── */
+.race-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 20px 0 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.race-tab {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: .85rem;
+  font-weight: 700;
+  border: 2px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  cursor: default;
+  transition: all .25s;
+  position: relative;
+}
+.race-tab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--dark);
+}
+.race-tab.done {
+  background: rgba(74,171,74,.2);
+  border-color: var(--green-light);
+  color: var(--green-light);
+}
+.race-tab .check { margin-left:4px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 14px 0;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── INPUT GRID ── */
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+}
+.horse-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  transition: border-color .2s;
+}
+.horse-input:focus-within { border-color: var(--gold); }
+.h-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--dark);
+  font-weight: 900;
+  font-size: .8rem;
+  display: flex; align-items:center; justify-content:center;
+  flex-shrink: 0;
+}
+.horse-input input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e6edf3;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: .9rem;
+  width: 100%;
+}
+.horse-input input::placeholder { color: var(--text-dim); font-size:.8rem; }
+
+/* ── QUIZ INPUTS ── */
+.quiz-list { display:flex; flex-direction:column; gap:8px; }
+.quiz-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.q-lbl { color:var(--gold); font-weight:700; font-size:.85rem; width:26px; flex-shrink:0; }
+.quiz-row input {
+  flex: 1;
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 12px;
+  color: #e6edf3;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.quiz-row input:focus { border-color: var(--gold); }
+
+/* ── BUTTONS ── */
+.btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn:active { transform: scale(.97); }
+.btn-gold { background: linear-gradient(135deg,var(--gold),var(--gold-dark)); color:var(--dark); box-shadow:0 4px 16px rgba(245,197,24,.3); }
+.btn-gold:hover { box-shadow:0 6px 24px rgba(245,197,24,.45); transform:translateY(-1px); }
+.btn-green { background: linear-gradient(135deg,var(--green-light),var(--green)); color:#fff; box-shadow:0 4px 16px rgba(74,171,74,.3); }
+.btn-green:hover { transform:translateY(-1px); }
+.btn-red { background: linear-gradient(135deg,#ff6b6b,var(--red)); color:#fff; }
+.btn-ghost { background:transparent; border:1.5px solid var(--border); color:var(--text-dim); }
+.btn-ghost:hover { border-color:rgba(255,255,255,.3); color:#e6edf3; }
+.btn-sm { padding:7px 14px; font-size:.83rem; }
+.btn-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+
+/* ── ODDS BOARD ── */
+.odds-board {
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.odds-head {
+  display: grid;
+  grid-template-columns: 36px 1fr 70px 70px 80px;
+  gap: 6px;
+  background: rgba(245,197,24,.1);
+  padding: 8px 12px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.odds-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 70px 70px 80px;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  transition: background .15s;
+  font-size: .9rem;
+}
+.odds-row:hover { background: rgba(255,255,255,.03); }
+.odds-val { color:var(--gold); font-weight:900; font-size:1.05rem; text-align:center; }
+.odds-val.low { color:#4aab4a; }
+.odds-val.high { color:#ff6b6b; }
+.bar-wrap { background:rgba(255,255,255,.07); border-radius:3px; height:5px; overflow:hidden; }
+.bar-fill { height:100%; background:var(--gold); border-radius:3px; transition:width .4s ease; }
+.dim { color:var(--text-dim); font-size:.85rem; text-align:center; }
+
+/* ── TEAM BETTING ── */
+.team-grid {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.t-btn {
+  padding: 7px 14px;
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+.t-btn:hover { border-color:rgba(255,255,255,.3); color:#e6edf3; }
+.t-btn.active { background:var(--gold); border-color:var(--gold); color:var(--dark); }
+.t-btn.done { background:rgba(74,171,74,.2); border-color:var(--green-light); color:#7fd87f; }
+
+.bet-panel {
+  background: var(--dark3);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 12px;
+}
+.bet-horse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+.bet-hcard {
+  background: var(--dark2);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .18s;
+  position: relative;
+  user-select: none;
+}
+.bet-hcard:hover { border-color:rgba(255,255,255,.3); }
+.bet-hcard.sel { border-color:var(--gold); background:rgba(245,197,24,.1); }
+.bet-hcard .bh-name { font-weight:700; font-size:.95rem; margin:4px 0 2px; }
+.bet-hcard .bh-odds { color:var(--gold); font-weight:900; font-size:1.1rem; }
+.bet-hcard .coin-badge {
+  position:absolute; top:-8px; right:-8px;
+  background:var(--red);
+  color:#fff;
+  border-radius:50%;
+  width:22px; height:22px;
+  font-size:.75rem; font-weight:900;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.coin-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+.c-btn {
+  width:34px; height:34px;
+  border-radius:50%;
+  border:2px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
+  font-size:1.1rem;
+  font-weight:900;
+  cursor:pointer;
+  transition:all .15s;
+  display:flex; align-items:center; justify-content:center;
+}
+.c-btn:hover { background:var(--gold); color:var(--dark); }
+.c-num { font-size:1.3rem; font-weight:900; min-width:28px; text-align:center; }
+.remain-tag {
+  background: rgba(255,255,255,.07);
+  border-radius:8px;
+  padding:5px 12px;
+  font-size:.85rem;
+  color:var(--text-dim);
+}
+.remain-tag span { color:#ff6b35; font-weight:700; }
+
+/* ── RACE PANEL ── */
+.race-panel {
+  background: var(--dark2);
+  border: 2px solid var(--green-light);
+  border-radius: 20px;
+  padding: 22px;
+  margin: 14px 0;
+  transition: background .3s;
+}
+.race-panel.flash-ok { animation: fOk .35s ease; }
+.race-panel.flash-ng { animation: fNg .35s ease; }
+@keyframes fOk { 0%{background:rgba(74,171,74,.35)} 100%{background:var(--dark2)} }
+@keyframes fNg { 0%{background:rgba(232,64,64,.35)} 100%{background:var(--dark2)} }
+
+.runner-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.runner-badge {
+  width:52px; height:52px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:var(--dark);
+  font-weight:900;
+  font-size:1.3rem;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 4px 14px rgba(245,197,24,.4);
+}
+.runner-name {
+  font-family:'Kaisei Decol',serif;
+  font-size:clamp(1.6rem,5vw,2.6rem);
+  font-weight:700;
+  color:var(--gold);
+  text-shadow:0 0 20px rgba(245,197,24,.4);
+}
+
+/* TIMER */
+.timer-wrap {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:24px;
+  margin:16px 0;
+  flex-wrap:wrap;
+}
+.timer-circle {
+  position:relative;
+  width:150px; height:150px;
+  flex-shrink:0;
+}
+.t-svg { transform:rotate(-90deg); width:100%; height:100%; }
+.t-track { fill:none; stroke:rgba(255,255,255,.08); stroke-width:7; }
+.t-prog { fill:none; stroke:var(--gold); stroke-width:7; stroke-linecap:round; transition:stroke-dashoffset 1s linear, stroke .3s; }
+.t-prog.warn { stroke:var(--red); }
+.t-text {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-52%);
+  font-family:'Kaisei Decol',serif;
+  font-size:2.3rem; font-weight:700;
+}
+.t-sub {
+  position:absolute; top:64%; left:50%;
+  transform:translateX(-50%);
+  font-size:.65rem; letter-spacing:2px; color:var(--text-dim);
+}
+
+.score-row {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+}
+.score-box {
+  background:var(--dark3);
+  border-radius:14px;
+  padding:12px 20px;
+  text-align:center;
+  min-width:100px;
+}
+.s-lbl { font-size:.7rem; letter-spacing:2px; color:var(--text-dim); }
+.s-num { font-family:'Kaisei Decol',serif; font-size:2.6rem; font-weight:700; line-height:1; }
+.s-num.ok { color:var(--green-light); }
+.s-num.ng { color:var(--red); }
+
+.q-box {
+  background:rgba(255,255,255,.04);
+  border-left:4px solid var(--gold);
+  border-radius:0 10px 10px 0;
+  padding:13px 16px;
+  margin:14px 0;
+  font-size:1rem;
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.q-lbl2 { color:var(--gold); font-weight:900; flex-shrink:0; }
+
+.ans-row {
+  display:flex; gap:12px; justify-content:center;
+  margin:14px 0; flex-wrap:wrap;
+}
+.ans-btn {
+  padding:13px 36px;
+  border:none; border-radius:50px;
+  font-family:'Zen Maru Gothic',sans-serif;
+  font-size:1.1rem; font-weight:900;
+  cursor:pointer; transition:all .15s;
+  min-width:130px;
+}
+.ans-ok { background:linear-gradient(135deg,#4aab4a,#2d7a2d); color:#fff; box-shadow:0 4px 16px rgba(74,171,74,.4); }
+.ans-ok:hover { transform:scale(1.05); }
+.ans-ng { background:linear-gradient(135deg,#ff6b6b,#e84040); color:#fff; box-shadow:0 4px 16px rgba(232,64,64,.4); }
+.ans-ng:hover { transform:scale(1.05); }
+
+/* ── RESULTS ── */
+.podium {
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:10px;
+  margin:24px 0 16px;
+}
+.p-item { flex:1; max-width:180px; text-align:center; }
+.p-name { font-weight:700; font-size:.95rem; margin-bottom:6px; }
+.p-score { font-size:.8rem; color:var(--text-dim); margin-bottom:4px; }
+.p-block {
+  border-radius:10px 10px 0 0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Kaisei Decol',serif;
+  font-size:2.2rem; font-weight:700;
+}
+.p1 .p-block { height:120px; background:linear-gradient(180deg,#ffd700,#b8860b); color:var(--dark); }
+.p2 .p-block { height:85px; background:linear-gradient(180deg,#c0c0c0,#808080); color:var(--dark); }
+.p3 .p-block { height:60px; background:linear-gradient(180deg,#cd7f32,#8b4513); color:#fff; }
+
+.res-table {
+  width:100%; border-collapse:collapse; font-size:.88rem;
+}
+.res-table th {
+  background:rgba(245,197,24,.12);
+  color:var(--gold); padding:8px 12px;
+  text-align:left; font-size:.72rem; letter-spacing:1px;
+}
+.res-table td { padding:8px 12px; border-bottom:1px solid rgba(255,255,255,.05); }
+.res-table tr:hover td { background:rgba(255,255,255,.03); }
+.r1 { color:var(--gold); font-weight:900; }
+.r2 { color:#c0c0c0; font-weight:700; }
+.r3 { color:#cd7f32; font-weight:700; }
+
+.pay-table {
+  width:100%; border-collapse:collapse; font-size:.85rem;
+}
+.pay-table th { background:rgba(255,255,255,.06); color:var(--text-dim); padding:7px 10px; font-size:.72rem; }
+.pay-table td { padding:7px 10px; border-bottom:1px solid rgba(255,255,255,.04); }
+.win-cell { color:var(--gold); font-weight:700; }
+.lose-cell { color:rgba(255,255,255,.3); }
+.place-cell { color:var(--green-light); }
+
+/* ── RACE SUMMARY (全レース終了後) ── */
+.champion-banner {
+  text-align:center;
+  background:linear-gradient(135deg,rgba(245,197,24,.15),rgba(255,107,53,.1));
+  border:2px solid var(--gold);
+  border-radius:18px;
+  padding:24px;
+  margin:16px 0;
+}
+.champ-label { font-size:.8rem; color:var(--text-dim); letter-spacing:4px; }
+.champ-name {
+  font-family:'Kaisei Decol',serif;
+  font-size:clamp(2.2rem,6vw,3.5rem);
+  color:var(--gold);
+  text-shadow:0 0 40px rgba(245,197,24,.5);
+  margin:4px 0;
+}
+
+/* ── INFO TAGS ── */
+.info-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:8px 0; font-size:.85rem; color:var(--text-dim); }
+.tag { background:rgba(255,255,255,.07); border-radius:20px; padding:3px 10px; }
+.tag-g { background:rgba(245,197,24,.2); color:var(--gold); }
+.tag-gr { background:rgba(74,171,74,.2); color:#7fd87f; }
+
+/* ── PROGRESS ── */
+.prog-wrap { background:rgba(255,255,255,.08); border-radius:4px; height:5px; overflow:hidden; margin:8px 0; }
+.prog-fill { height:100%; background:linear-gradient(90deg,var(--green-light),var(--gold)); transition:width .4s; }
+
+/* confetti */
+.confetti-layer { position:fixed; inset:0; pointer-events:none; z-index:999; overflow:hidden; }
+.cp {
+  position:absolute; width:9px; height:13px;
+  border-radius:2px; top:-20px;
+  animation:cpFall var(--d) ease-in forwards;
+  animation-delay:var(--dl);
+}
+@keyframes cpFall { to { transform:translateY(110vh) rotate(var(--r)); opacity:0; } }
+
+/* SCREENS */
+.screen { display:none; }
+.screen.active { display:block; }
+
+/* スコア入力グリッド */
+.score-input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 8px 0;
+}
+.score-input-card {
+  background: var(--dark3);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  transition: border-color .2s;
+}
+.score-input-card:focus-within { border-color: var(--gold); }
+.si-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--dark);
+  font-weight: 900;
+  font-size: .8rem;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 6px;
+}
+.si-name { font-weight: 700; font-size: .9rem; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.si-input {
+  width: 70px;
+  background: var(--dark2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+  color: var(--gold);
+  font-family: 'Kaisei Decol', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  transition: border-color .2s;
+}
+.si-input:focus { border-color: var(--gold); }
+.si-label { font-size: .72rem; color: var(--text-dim); margin-top: 4px; }
+
+/* 券種トグル */
+.ticket-toggle {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0 4px;
+}
+.tt-btn {
+  flex: 1;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+}
+.tt-btn.sel-tan  { background: rgba(245,197,24,.25); border-color: var(--gold); color: var(--gold); }
+.tt-btn.sel-fuku { background: rgba(74,171,74,.25);  border-color: var(--green-light); color: var(--green-light); }
+.bet-hcard .bh-type { font-size: .7rem; margin-top: 2px; font-weight: 700; }
+.type-tan  { color: var(--gold); }
+.type-fuku { color: var(--green-light); }
+
+/* DIVIDER */
+.divider { height:1px; background:var(--border); margin:18px 0; }
+
+/* ゴール演出 */
+@keyframes goalFlag {
+  from { transform: rotate(-15deg) scale(1); }
+  to   { transform: rotate(15deg) scale(1.2); }
+}
+@keyframes goalText {
+  0%   { transform: scale(0.3); opacity:0; }
+  60%  { transform: scale(1.15); opacity:1; }
+  100% { transform: scale(1); opacity:1; }
+}
+@keyframes goalPulse {
+  0%,100% { text-shadow: 0 0 20px rgba(245,197,24,.6); }
+  50%      { text-shadow: 0 0 60px rgba(245,197,24,1), 0 0 100px rgba(255,107,53,.8); }
+}
+#goal-text { animation: goalText .6s ease-out forwards, goalPulse 1s ease 0.6s infinite; }
+
+/* ─── OPENING VIDEO ─── */
+.opening-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.opening-video-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#opening-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+.mute-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.3);
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  transition: all .2s;
+}
+.mute-btn:hover {
+  background: rgba(0,0,0,.8);
+  border-color: var(--gold);
+  transform: scale(1.1);
+}
+.skip-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 2px solid var(--gold);
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(10px);
+  color: var(--gold);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+.skip-btn:hover {
+  background: var(--gold);
+  color: var(--dark);
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* ─── ROULETTE ─── */
+.roulette-wrap {
+  position: relative;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 420px;
+}
+.roulette-arrow {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: -4px;
+  z-index: 2;
+  position: relative;
+  filter: drop-shadow(0 0 8px rgba(245,197,24,.6));
+}
+.roulette-window {
+  height: 80px;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 3px solid var(--gold);
+  background: var(--dark3);
+  box-shadow: 0 0 30px rgba(245,197,24,.2), inset 0 0 20px rgba(0,0,0,.5);
+  position: relative;
+}
+.roulette-window::before,
+.roulette-window::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 22px;
+  z-index: 2;
+  pointer-events: none;
+}
+.roulette-window::before { top:0; background: linear-gradient(to bottom, var(--dark3), transparent); }
+.roulette-window::after  { bottom:0; background: linear-gradient(to top, var(--dark3), transparent); }
+
+.roulette-drum {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+.roulette-item {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Kaisei Decol', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+.roulette-item .ri-num {
+  background: var(--gold);
+  color: var(--dark);
+  border-radius: 50%;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.rl-result {
+  text-align: center;
+  margin: 20px 0 10px;
+  padding: 18px;
+  background: linear-gradient(135deg, rgba(245,197,24,.15), rgba(255,107,53,.1));
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  animation: resultPop .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes resultPop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.rl-result-label { font-size: .75rem; color: var(--text-dim); letter-spacing: 3px; margin-bottom: 6px; }
+.rl-result-text  {
+  font-family: 'Kaisei Decol', serif;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(245,197,24,.5);
+}
+
+.rl-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  margin: 14px 0;
+}
+.rl-item {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  transition: all .3s;
+}
+.rl-item.selected {
+  background: rgba(245,197,24,.2);
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+  transform: scale(1.04);
+}
+.rl-item .ri-n {
+  background: rgba(255,255,255,.1);
+  border-radius: 50%;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+@media(max-width:560px){
+  .odds-head,.odds-row { grid-template-columns:30px 1fr 60px 50px; }
+  .odds-head>*:last-child,.odds-row>*:last-child { display:none; }
+  .bet-horse-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="confetti-layer" id="confetti"></div>
+<div class="container">
+
+  <!-- ═══ SCREEN: OPENING VIDEO ═══ -->
+  <div class="screen active" id="scr-opening">
+    <div class="opening-overlay">
+      <div class="opening-video-wrap">
+        <video id="opening-video" autoplay playsinline>
+          <source src="./6年生ダービームービー.mp4" type="video/mp4">
+        </video>
+        <!-- デバッグ表示 -->
+        <div style="position:absolute;top:20px;left:20px;background:rgba(0,0,0,.8);color:#fff;padding:10px;border-radius:8px;font-size:12px;z-index:10001;" id="debug-info">
+          <div>動画読み込み中...</div>
+          <div id="video-status">ステータス: 待機中</div>
+        </div>
+      </div>
+      <button class="mute-btn" id="mute-btn" onclick="toggleMute()">
+        <span id="mute-icon">🔊</span>
+      </button>
+      <!-- スキップボタン -->
+      <button class="skip-btn" onclick="endOpening()">
+        動画をスキップ →
+      </button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-emoji">🏇🎊🏅</div>
+    <h1 class="title">6年生ダービー</h1>
+    <p class="subtitle">GRADUATION DERBY 2025</p>
+  </div>
+
+  <!-- RACE TABS -->
+  <div class="race-tabs" id="race-tabs"></div>
+
+  <!-- ═══ SCREEN: SETUP ═══ -->
+  <div class="screen active" id="scr-setup">
+    <div class="card">
+      <div class="card-title">✏️ 出走馬を登録</div>
+      <div class="info-row">
+        <span class="tag tag-g" id="setup-race-label">第1レース</span>
+        <span id="setup-horse-count-label" style="color:var(--text-dim)">5人</span>
+      </div>
+      <div class="input-grid" id="setup-grid"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="goRoulette()">🎰 お題ルーレットへ →</button>
+    </div>
+  </div>
+
+  <!-- ═══ SCREEN: ROULETTE ═══ -->
+  <div class="screen" id="scr-roulette">
+
+    <!-- BGM: 電子ルーレット -->
+    <audio id="roulette-bgm">
+      <source src="./電子ルーレット.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card">
+      <div class="card-title">🎰 お題ルーレット</div>
+      <div class="info-row">
+        <span class="tag tag-g" id="rl-race-label">第1レース</span>
+        <span style="color:var(--text-dim);font-size:.85rem;margin-left:4px">クイズのお題を決めよう！</span>
+      </div>
+
+      <!-- ルーレット本体 -->
+      <div class="roulette-wrap">
+        <div class="roulette-arrow">▼</div>
+        <div class="roulette-window">
+          <div class="roulette-drum" id="roulette-drum"></div>
+        </div>
+      </div>
+
+      <!-- 結果表示 -->
+      <div class="rl-result" id="rl-result" style="display:none">
+        <div class="rl-result-label">今回のお題</div>
+        <div class="rl-result-text" id="rl-result-text">---</div>
+      </div>
+
+      <!-- お題一覧 -->
+      <div class="rl-list" id="rl-list"></div>
+
+      <div class="btn-row" style="justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-red" id="rl-spin-btn" onclick="spinRoulette()">🎰 回す！</button>
+        <button class="btn btn-gold" id="rl-next-btn" onclick="goBetting()" style="display:none">🎲 投票へ →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SCREEN: BETTING ═══ -->
+  <div class="screen" id="scr-bet">
+    <div class="card">
+      <div class="card-title">📊 現在のオッズ</div>
+      <div class="info-row">
+        <span class="tag tag-g" id="bet-race-label">第1レース</span>
+        <span style="color:var(--text-dim);font-size:.83rem">コインが集まるほどオッズ⬇️ 少ないほどオッズ⬆️</span>
+      </div>
+      <div class="odds-board">
+        <div class="odds-head">
+          <div>#</div><div>名前</div><div style="text-align:center">オッズ</div><div style="text-align:center">コイン</div><div>投票率</div>
+        </div>
+        <div id="odds-list"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪙 班ごとに投票</div>
+      <div class="info-row">
+        <span class="tag tag-g">コイン5枚 / 班</span>
+        <span style="color:var(--text-dim);font-size:.83rem">複数の馬に分けてもOK</span>
+      </div>
+      <div class="team-grid" id="team-grid"></div>
+      <div id="bet-panel" style="display:none">
+        <div class="bet-panel">
+          <div style="font-weight:700;color:var(--gold);margin-bottom:6px" id="bet-team-label"></div>
+          <div class="remain-tag">残りコイン: <span id="remain-coins">5</span> / 5枚</div>
+          <div class="bet-horse-grid" id="bet-horse-grid"></div>
+          <div id="coin-sel-area" style="display:none;margin-top:8px">
+            <div style="color:var(--text-dim);font-size:.85rem;margin-bottom:6px">
+              選択中: <span id="sel-horse-name" style="color:var(--gold);font-weight:700"></span>
+            </div>
+            <div class="coin-ctrl">
+              <button class="c-btn" onclick="coinDelta(-1)">－</button>
+              <div class="c-num" id="coin-num">0</div>
+              <span style="color:var(--text-dim)">枚</span>
+              <button class="c-btn" onclick="coinDelta(1)">＋</button>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-gold btn-sm" onclick="confirmTeam()">✅ この班の投票を確定</button>
+            <button class="btn btn-ghost btn-sm" onclick="resetTeam()">リセット</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goSetup()">← 設定に戻る</button>
+      <button class="btn btn-gold" onclick="goRace()">🏁 レース開始 →</button>
+    </div>
+  </div>
+
+  <!-- ═══ SCREEN: RACE ═══ -->
+  <div class="screen" id="scr-race">
+
+    <!-- BGM: 天国と地獄 -->
+    <audio id="race-bgm" loop>
+      <source src="./天国と地獄.m4a" type="audio/mp4">
+    </audio>
+
+    <!-- ゴール演出オーバーレイ -->
+    <div id="goal-overlay" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);display:none;flex-direction:column;align-items:center;justify-content:center;">
+      <div id="goal-flag" style="font-size:5rem;animation:goalFlag .5s ease infinite alternate">🏁</div>
+      <div style="font-family:'Kaisei Decol',serif;font-size:clamp(2.5rem,8vw,5rem);color:var(--gold);text-shadow:0 0 40px rgba(245,197,24,.8);animation:goalText .6s ease-out" id="goal-text">GOAL!!</div>
+      <div style="color:rgba(255,255,255,.7);font-size:1.1rem;margin-top:12px;letter-spacing:4px">タイムアップ！正解数を入力してください</div>
+    </div>
+
+    <!-- タイマーフェーズ -->
+    <div id="phase-timer">
+      <div class="race-panel" id="race-panel">
+        <div style="text-align:center;margin-bottom:14px">
+          <span class="tag tag-g" id="race-phase-label">第1レース</span>
+          <span style="color:var(--text-dim);font-size:.85rem;margin-left:8px">全員いっせいにスタート！</span>
+        </div>
+        <div class="timer-wrap" style="justify-content:center">
+          <div class="timer-circle">
+            <svg class="t-svg" viewBox="0 0 100 100">
+              <circle class="t-track" cx="50" cy="50" r="43"/>
+              <circle class="t-prog" id="t-arc" cx="50" cy="50" r="43"
+                stroke-dasharray="270.18" stroke-dashoffset="0"/>
+            </svg>
+            <div class="t-text" id="t-text">1:00</div>
+            <div class="t-sub">SECOND</div>
+          </div>
+        </div>
+        <div class="btn-row" style="justify-content:center;margin-top:16px" id="ctrl-row">
+          <button class="btn btn-green" id="btn-start" onclick="startAllRace()" style="font-size:1.1rem;padding:14px 36px">
+            🏁 全員スタート！
+          </button>
+        </div>
+      </div>
+
+      <!-- レース中オッズボード -->
+      <div class="card" id="race-odds-card" style="display:none;margin-top:14px">
+        <div class="card-title">📊 現在のオッズ</div>
+        <div class="odds-board">
+          <div class="odds-head">
+            <div>#</div><div>名前</div><div style="text-align:center">オッズ</div><div style="text-align:center">コイン</div><div>投票率</div>
+          </div>
+          <div id="race-odds-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 正解数入力フェーズ -->
+    <div id="phase-input" style="display:none">
+      <div class="card">
+        <div class="card-title">📝 正解数を入力</div>
+        <div style="color:var(--text-dim);font-size:.85rem;margin-bottom:14px">各自の正解数を入力してください</div>
+        <div id="score-input-grid"></div>
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn btn-gold" onclick="submitScores()">🏆 結果を見る →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ SCREEN: RACE RESULT ═══ -->
+  <div class="screen" id="scr-rresult">
+    <div class="card">
+      <div class="card-title" id="rr-title">🏆 第1レース 結果</div>
+      <div class="podium" id="rr-podium"></div>
+      <table class="res-table" id="rr-table">
+        <thead><tr><th>順位</th><th>名前</th><th>正解数</th><th>オッズ</th></tr></thead>
+        <tbody id="rr-tbody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">💰 配当結果</div>
+      <div class="info-row" id="rr-pay-info"></div>
+      <table class="pay-table">
+        <thead><tr><th>班</th><th>賭け先</th><th>コイン</th><th>配当</th></tr></thead>
+        <tbody id="rr-pay-tbody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">🏅 所持コイン（全班）</div>
+      <div id="total-coins-board"></div>
+    </div>
+    <div class="btn-row" id="rr-btn-row" style="justify-content:center;margin-top:10px"></div>
+  </div>
+
+  <!-- ═══ SCREEN: FINAL RESULT ═══ -->
+  <div class="screen" id="scr-final">
+    <!-- 優勝班バナー -->
+    <div class="champion-banner">
+      <div class="champ-label">🏆 総合優勝 🏆</div>
+      <div style="font-size:2.5rem">🎉</div>
+      <div class="champ-name" id="final-champ-team">---</div>
+      <div style="color:rgba(255,255,255,.6);margin-top:8px;font-size:1.1rem">
+        所持コイン: <span id="final-champ-coins" style="color:var(--gold);font-weight:700">---</span>枚
+      </div>
+    </div>
+
+    <!-- 班別ランキング -->
+    <div class="card">
+      <div class="card-title">🏅 班別 最終ランキング</div>
+      <table class="res-table" id="final-team-table">
+        <thead><tr><th>順位</th><th>班</th><th>所持コイン</th><th>初期</th><th>増減</th></tr></thead>
+        <tbody id="final-team-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- 出走馬結果サマリー -->
+    <div class="card">
+      <div class="card-title">🐴 全レース結果サマリー（出走馬）</div>
+      <table class="res-table" id="final-table">
+        <thead><tr><th>レース</th><th>1着</th><th>正解数</th><th>2着</th><th>3着</th></tr></thead>
+        <tbody id="final-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="btn-row" style="justify-content:center;margin-top:10px">
+      <button class="btn btn-gold" onclick="restartAll()">🔄 もう一度！</button>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ════════════════════════════
+//  STATE
+// ════════════════════════════
+const RACE_CONFIG = [
+  { label:'第1レース', count:4, names:['ナナコパンドラ','ホノカインパクト','リョウウンスカイ','ドギャメンテ'] },
+  { label:'第2レース', count:4, names:['コウヘイボンド','スズカレンチャン','ナオキズナ','カリンブルボン'] },
+  { label:'第3レース', count:5, names:['ワカナドンナ','ナツミブライアン','ジュンノルドルフ','コウヘイクリーク','リュウタンホイザ'] },
+  { label:'第4レース', count:3, names:['サクラーレル','ワカナダイヤモンド','ナオフェスタ'] },
+];
+const TEAM_COUNT = 14;
+const COINS_EACH = 5;
+const RACE_SEC   = 60;
+const CIRC       = 270.18;
+
+let curRace    = 0;
+
+// per-race data
+let raceHorses   = [];
+let raceBets     = {};
+let raceConfirmed= new Set();
+let raceResults  = [];
+let timerInt     = null;
+let timeLeft     = RACE_SEC;
+let running      = false;
+let selHorse     = null;
+let curTeam      = null;
+let spaceDown    = false; // スペースキー5倍速
+
+// global across races
+// 所持コイン：初期値 = COINS_EACH。賭け分は差し引き済み、配当で増減する
+let teamHoldings = Array(TEAM_COUNT).fill(COINS_EACH);
+let allRaceResults = [];
+
+// ════════════════════════════
+//  OPENING VIDEO
+// ════════════════════════════
+let video = null;
+let isMuted = false;
+
+// ページロード時に動画を初期化
+window.addEventListener('DOMContentLoaded', ()=>{
+  video = document.getElementById('opening-video');
+  const statusEl = document.getElementById('video-status');
+  
+  // 動画の各種イベントをデバッグ表示
+  video.addEventListener('loadstart', ()=>{
+    statusEl.textContent = 'ステータス: 読み込み開始';
+  });
+  
+  video.addEventListener('loadeddata', ()=>{
+    statusEl.textContent = 'ステータス: データ読み込み完了';
+  });
+  
+  video.addEventListener('canplay', ()=>{
+    statusEl.textContent = 'ステータス: 再生可能';
+  });
+  
+  video.addEventListener('playing', ()=>{
+    statusEl.textContent = 'ステータス: 再生中';
+    // デバッグ表示を3秒後に消す
+    setTimeout(()=>{
+      const debugEl = document.getElementById('debug-info');
+      if(debugEl) debugEl.style.display = 'none';
+    }, 3000);
+  });
+  
+  video.addEventListener('error', (e)=>{
+    statusEl.textContent = 'エラー: 動画ファイルが見つかりません';
+    statusEl.style.color = '#ff4444';
+  });
+  
+  // 動画終了時のイベント
+  video.addEventListener('ended', ()=>{
+    endOpening();
+  });
+  
+  // 自動再生を試みる
+  const playPromise = video.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(error => {
+      statusEl.textContent = 'ステータス: 自動再生ブロック（ミュートして再試行）';
+      // 自動再生がブロックされた場合
+      video.muted = true;
+      isMuted = true;
+      document.getElementById('mute-icon').textContent = '🔇';
+      video.play().catch(err => {
+        statusEl.textContent = 'エラー: 再生失敗 - スキップボタンで進んでください';
+        statusEl.style.color = '#ff4444';
+      });
+    });
+  }
+});
+
+function toggleMute() {
+  if (!video) return;
+  if (isMuted) {
+    video.muted = false;
+    document.getElementById('mute-icon').textContent = '🔊';
+  } else {
+    video.muted = true;
+    document.getElementById('mute-icon').textContent = '🔇';
+  }
+  isMuted = !isMuted;
+}
+
+function endOpening() {
+  document.getElementById('scr-opening').classList.remove('active');
+  if(video) video.pause();
+  init();
+}
+
+// ════════════════════════════
+//  ROULETTE DATA
+// ════════════════════════════
+const ROULETTE_DATA = [
+  // 第1レース
+  ['乗り物','哺乳類の動物','果物','丸いもの','犬種','スポーツの名前'],
+  // 第2レース
+  ['パンの種類','魚類','楽器の名前','海の生き物','冷たいデザート','哺乳類の動物'],
+  // 第3レース
+  ['文房具','ペットとして飼える動物','四角いもの','鳥類','温かい食べ物','伝染病'],
+  // 第4レース
+  ['色の名前','伝染病','赤いもの','海の生き物','透明なもの','動物病院で使う道具'],
+];
+
+let rouletteSpinning = false;
+let rouletteResult   = null;
+
+function goRoulette(){
+  // まず名前を収集
+  const cfg = RACE_CONFIG[curRace];
+  raceHorses = [];
+  for(let i=0;i<cfg.count;i++){
+    const v = document.getElementById(`hn-${i}`)?.value||`馬${i+1}`;
+    raceHorses.push({name:v||`馬${i+1}`, num:i+1});
+  }
+  rouletteResult = null;
+  rouletteSpinning = false;
+  buildRouletteScreen();
+  setScreen('roulette');
+}
+
+function buildRouletteScreen(){
+  const items = ROULETTE_DATA[curRace];
+  document.getElementById('rl-race-label').textContent = RACE_CONFIG[curRace].label;
+
+  // ドラムを作成（ループ感を出すため3周分並べる）
+  const drum = document.getElementById('roulette-drum');
+  const repeated = [...items,...items,...items,...items,...items];
+  drum.innerHTML = repeated.map((t,i)=>`
+    <div class="roulette-item">
+      <div class="ri-num">${(i % items.length)+1}</div>
+      <span>${t}</span>
+    </div>`).join('');
+  drum.style.transition = 'none';
+  drum.style.transform  = 'translateY(0)';
+
+  // お題一覧
+  document.getElementById('rl-list').innerHTML = items.map((t,i)=>`
+    <div class="rl-item" id="rl-item-${i}">
+      <div class="ri-n">${i+1}</div>
+      <span>${t}</span>
+    </div>`).join('');
+
+  // ボタン状態リセット
+  document.getElementById('rl-result').style.display = 'none';
+  document.getElementById('rl-spin-btn').style.display = 'inline-flex';
+  document.getElementById('rl-next-btn').style.display = 'none';
+  document.querySelectorAll('.rl-item').forEach(el=>el.classList.remove('selected'));
+}
+
+function spinRoulette(){
+  if(rouletteSpinning) return;
+  rouletteSpinning = true;
+
+  // BGM再生
+  const bgm = document.getElementById('roulette-bgm');
+  bgm.currentTime = 0;
+  bgm.play().catch(err => console.log('Roulette BGM autoplay blocked:', err));
+
+  const items = ROULETTE_DATA[curRace];
+  const n = items.length;
+
+  // 結果をランダムに決定
+  const resultIdx = Math.floor(Math.random() * n);
+  rouletteResult  = resultIdx;
+
+  // ドラムのアニメーション
+  const drum       = document.getElementById('roulette-drum');
+  const itemH      = 80; // px
+  // 2周分流してから結果へ止まる
+  const baseRounds = 3;
+  const targetPos  = (baseRounds * n + resultIdx) * itemH;
+
+  // スタート：transition なしで先頭へ
+  drum.style.transition = 'none';
+  drum.style.transform  = 'translateY(0)';
+
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      drum.style.transition = `transform 3.5s cubic-bezier(.17,.67,.12,1)`;
+      drum.style.transform  = `translateY(-${targetPos}px)`;
+    });
+  });
+
+  // 結果表示
+  setTimeout(()=>{
+    // BGM停止
+    bgm.pause();
+    bgm.currentTime = 0;
+    showRouletteResult(resultIdx);
+    rouletteSpinning = false;
+  }, 3700);
+}
+
+function showRouletteResult(idx){
+  const items = ROULETTE_DATA[curRace];
+
+  // ハイライト
+  document.querySelectorAll('.rl-item').forEach((el,i)=>{
+    el.classList.toggle('selected', i === idx);
+  });
+
+  // 結果カード
+  document.getElementById('rl-result-text').textContent = items[idx];
+  const res = document.getElementById('rl-result');
+  res.style.display = 'block';
+  // アニメーション再生のためクラスを一度外す
+  res.style.animation = 'none';
+  void res.offsetWidth;
+  res.style.animation = '';
+
+  // ボタン切り替え
+  document.getElementById('rl-spin-btn').textContent = '🎰 もう一度';
+  document.getElementById('rl-next-btn').style.display = 'inline-flex';
+}
+function init() {
+  buildRaceTabs();
+  startRaceSetup();
+}
+
+function buildRaceTabs() {
+  const el = document.getElementById('race-tabs');
+  el.innerHTML = RACE_CONFIG.map((r,i)=>`
+    <div class="race-tab${i===curRace?' active':i<curRace?' done':''}" id="rtab-${i}">
+      ${r.label}${i<curRace?' <span class="check">✓</span>':''}
+    </div>`).join('');
+}
+
+function updateRaceTabs() {
+  RACE_CONFIG.forEach((r,i)=>{
+    const el = document.getElementById(`rtab-${i}`);
+    if (!el) return;
+    el.className = 'race-tab' + (i===curRace?' active':i<curRace?' done':'');
+    el.innerHTML = r.label + (i<curRace?' <span class="check">✓</span>':'');
+  });
+}
+
+function startRaceSetup() {
+  raceHorses = [];
+  raceBets = {};
+  raceConfirmed = new Set();
+  raceResults = [];
+  selHorse = null;
+  curTeam = null;
+  buildSetupScreen();
+  setScreen('setup');
+  updateRaceTabs();
+}
+
+// ════════════════════════════
+//  SETUP SCREEN
+// ════════════════════════════
+function buildSetupScreen() {
+  const cfg = RACE_CONFIG[curRace];
+  document.getElementById('setup-race-label').textContent = cfg.label;
+  document.getElementById('setup-horse-count-label').textContent = `${cfg.count}人`;
+
+  const grid = document.getElementById('setup-grid');
+  grid.innerHTML = '';
+  for (let i=0;i<cfg.count;i++){
+    const defaultName = cfg.names?.[i] || '';
+    grid.innerHTML += `
+      <div class="horse-input">
+        <div class="h-num">${i+1}</div>
+        <input type="text" placeholder="名前" id="hn-${i}" value="${defaultName}">
+      </div>`;
+  }
+}
+
+function goBetting(){
+  const cfg = RACE_CONFIG[curRace];
+  raceHorses = [];
+  for(let i=0;i<cfg.count;i++){
+    const v = document.getElementById(`hn-${i}`)?.value||`馬${i+1}`;
+    raceHorses.push({name:v||`馬${i+1}`, num:i+1});
+  }
+  document.getElementById('bet-race-label').textContent = RACE_CONFIG[curRace].label;
+  updateOddsBoard();
+  buildTeamGrid();
+  document.getElementById('bet-panel').style.display='none';
+  setScreen('bet');
+}
+
+function goSetup(){ setScreen('setup'); }
+
+// ════════════════════════════
+//  ODDS（単勝のみ）
+// ════════════════════════════
+function calcOdds(){
+  const coins={};
+  let total=0;
+  raceHorses.forEach((_,i)=>{ coins[i]=0; });
+  Object.values(raceBets).forEach(b=>{
+    Object.entries(b).forEach(([hi,c])=>{
+      const idx=parseInt(hi);
+      coins[idx]=(coins[idx]||0)+c;
+      total+=c;
+    });
+  });
+  const odds={};
+  raceHorses.forEach((_,i)=>{
+    odds[i]=coins[i]>0?(total/coins[i]).toFixed(1):'---';
+  });
+  return {odds,coins,total};
+}
+
+function updateOddsBoard(){
+  const {odds,coins,total}=calcOdds();
+  const el=document.getElementById('odds-list');
+  el.innerHTML='';
+  raceHorses.forEach((h,i)=>{
+    const pct=total>0?Math.round(coins[i]/total*100):0;
+    const od=parseFloat(odds[i]);
+    const cls=!isNaN(od)?(od<=2?'low':od>=5?'high':''):'';
+    el.innerHTML+=`
+      <div class="odds-row">
+        <div><span class="h-num" style="width:26px;height:26px;font-size:.75rem">${h.num}</span></div>
+        <div style="font-weight:700">${h.name}</div>
+        <div class="odds-val ${cls}">${odds[i]}</div>
+        <div class="dim">${coins[i]}枚</div>
+        <div><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div><div class="dim" style="font-size:.72rem">${pct}%</div></div>
+      </div>`;
+  });
+}
+
+// ════════════════════════════
+//  BETTING
+// ════════════════════════════
+function buildTeamGrid(){
+  const el=document.getElementById('team-grid');
+  el.innerHTML='';
+  for(let i=0;i<TEAM_COUNT;i++){
+    const done=raceConfirmed.has(i);
+    el.innerHTML+=`<button class="t-btn${done?' done':''}" id="tbtn-${i}" onclick="selectTeam(${i})">${i+1}班</button>`;
+  }
+}
+
+function selectTeam(idx){
+  curTeam=idx;
+  if(!raceBets[idx]) raceBets[idx]={};
+  document.querySelectorAll('.t-btn').forEach((b,i)=>{
+    b.classList.toggle('active',i===idx);
+  });
+  document.getElementById('bet-panel').style.display='block';
+  document.getElementById('bet-team-label').textContent=`${idx+1}班 の投票`;
+  selHorse=null;
+  document.getElementById('coin-sel-area').style.display='none';
+  buildBetHorseGrid();
+  updateRemain();
+}
+
+function buildBetHorseGrid(){
+  if(curTeam===null) return;
+  const {odds}=calcOdds();
+  const bets=raceBets[curTeam]||{};
+  const el=document.getElementById('bet-horse-grid');
+  el.innerHTML='';
+  raceHorses.forEach((h,i)=>{
+    const c=bets[i]||0;
+    el.innerHTML+=`
+      <div class="bet-hcard${selHorse===i?' sel':''}" id="bhc-${i}" onclick="selBetHorse(${i})">
+        ${c>0?`<div class="coin-badge">${c}</div>`:''}
+        <div class="h-num" style="margin:0 auto 5px;font-size:.75rem">${h.num}</div>
+        <div class="bh-name">${h.name}</div>
+        <div class="bh-odds">${odds[i]}</div>
+      </div>`;
+  });
+}
+
+function selBetHorse(idx){
+  selHorse=idx;
+  document.getElementById('coin-sel-area').style.display='block';
+  document.getElementById('sel-horse-name').textContent=raceHorses[idx].name;
+  document.getElementById('coin-num').textContent=raceBets[curTeam]?.[idx]||0;
+  buildBetHorseGrid();
+}
+
+function getRemain(){
+  if(curTeam===null) return COINS_EACH;
+  return COINS_EACH - Object.values(raceBets[curTeam]||{}).reduce((a,b)=>a+(b||0),0);
+}
+function updateRemain(){ document.getElementById('remain-coins').textContent=getRemain(); }
+
+function coinDelta(d){
+  if(selHorse===null) return;
+  if(!raceBets[curTeam]) raceBets[curTeam]={};
+  const cur=raceBets[curTeam][selHorse]||0;
+  let next=cur+d;
+  if(next<0) next=0;
+  if(d>0 && getRemain()<=0) return;
+  raceBets[curTeam][selHorse]=next;
+  document.getElementById('coin-num').textContent=next;
+  updateRemain();
+  buildBetHorseGrid();
+  updateOddsBoard();
+}
+
+function confirmTeam(){
+  if(curTeam===null) return;
+  raceConfirmed.add(curTeam);
+  document.getElementById(`tbtn-${curTeam}`).className='t-btn done';
+  document.getElementById('bet-panel').style.display='none';
+  curTeam=null;
+  updateOddsBoard();
+}
+
+function resetTeam(){
+  if(curTeam===null) return;
+  raceBets[curTeam]={};
+  selHorse=null;
+  document.getElementById('coin-sel-area').style.display='none';
+  buildBetHorseGrid();
+  updateRemain();
+  updateOddsBoard();
+}
+
+// ════════════════════════════
+//  RACE（全員同時）
+// ════════════════════════════
+function goRace(){
+  raceResults=[];
+  timeLeft=RACE_SEC;
+  running=false;
+  clearInterval(timerInt);
+  document.getElementById('phase-timer').style.display='block';
+  document.getElementById('phase-input').style.display='none';
+  document.getElementById('ctrl-row').style.display='flex';
+  document.getElementById('race-odds-card').style.display='none';
+  document.getElementById('goal-overlay').style.display='none';
+  const arc=document.getElementById('t-arc');
+  arc.style.strokeDashoffset='0';
+  arc.classList.remove('warn');
+  document.getElementById('t-text').textContent='1:00';
+  document.getElementById('race-phase-label').textContent=RACE_CONFIG[curRace].label;
+  setScreen('race');
+}
+
+function startAllRace(){
+  running=true;
+  document.getElementById('ctrl-row').style.display='none';
+  // レース中オッズ表示
+  document.getElementById('race-odds-card').style.display='block';
+  buildRaceOddsBoard();
+  timerInt=setInterval(tick,1000);
+  // スペースキーイベント登録
+  document.addEventListener('keydown', onSpaceDown);
+  document.addEventListener('keyup',   onSpaceUp);
+  // BGM再生
+  const bgm = document.getElementById('race-bgm');
+  bgm.currentTime = 0;
+  bgm.play().catch(err => console.log('BGM autoplay blocked:', err));
+}
+
+function onSpaceDown(e){
+  if(e.code==='Space' && !spaceDown && running){
+    e.preventDefault();
+    spaceDown=true;
+    clearInterval(timerInt);
+    timerInt=setInterval(tick, 100); // 10倍速（1000ms→100ms）
+  }
+}
+function onSpaceUp(e){
+  if(e.code==='Space'){
+    spaceDown=false;
+    clearInterval(timerInt);
+    if(running) timerInt=setInterval(tick,1000);
+  }
+}
+
+function tick(){
+  timeLeft--;
+  updateTimer();
+  if(timeLeft<=0){
+    clearInterval(timerInt);
+    running=false;
+    onTimeUp();
+  }
+}
+
+function updateTimer(){
+  const m=Math.floor(timeLeft/60),s=timeLeft%60;
+  document.getElementById('t-text').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+  const arc=document.getElementById('t-arc');
+  arc.style.strokeDashoffset=CIRC*(1-timeLeft/RACE_SEC);
+  arc.classList.toggle('warn',timeLeft<=20);
+}
+
+function buildRaceOddsBoard(){
+  const {odds,coins,total}=calcOdds();
+  const el=document.getElementById('race-odds-list');
+  el.innerHTML='';
+  raceHorses.forEach((h,i)=>{
+    const pct=total>0?Math.round(coins[i]/total*100):0;
+    const od=parseFloat(odds[i]);
+    const cls=!isNaN(od)?(od<=2?'low':od>=5?'high':''):'';
+    el.innerHTML+=`
+      <div class="odds-row">
+        <div><span class="h-num" style="width:26px;height:26px;font-size:.75rem">${h.num}</span></div>
+        <div style="font-weight:700">${h.name}</div>
+        <div class="odds-val ${cls}">${odds[i]}</div>
+        <div class="dim">${coins[i]}枚</div>
+        <div><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div><div class="dim" style="font-size:.72rem">${pct}%</div></div>
+      </div>`;
+  });
+}
+
+function onTimeUp(){
+  // BGM停止
+  const bgm = document.getElementById('race-bgm');
+  bgm.pause();
+  bgm.currentTime = 0;
+  // キーイベント解除
+  document.removeEventListener('keydown', onSpaceDown);
+  document.removeEventListener('keyup',   onSpaceUp);
+  // ゴール演出
+  const overlay=document.getElementById('goal-overlay');
+  overlay.style.display='flex';
+  launchConfetti(false);
+  // 3秒後に入力フェーズへ
+  setTimeout(()=>{
+    overlay.style.display='none';
+    document.getElementById('phase-timer').style.display='none';
+    document.getElementById('phase-input').style.display='block';
+    buildScoreInputGrid();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }, 3000);
+}
+
+function buildScoreInputGrid(){
+  const el=document.getElementById('score-input-grid');
+  el.className='score-input-grid';
+  el.innerHTML=raceHorses.map((h,i)=>`
+    <div class="score-input-card">
+      <div class="si-num">${h.num}</div>
+      <div class="si-name">${h.name}</div>
+      <input class="si-input" type="number" min="0" max="99" value="0" id="si-${i}">
+      <div class="si-label">正解数</div>
+    </div>`).join('');
+}
+
+function submitScores(){
+  raceResults=raceHorses.map((h,i)=>({
+    horseIdx:i,
+    correct: parseInt(document.getElementById(`si-${i}`)?.value)||0,
+    wrong: 0
+  }));
+  showRaceResult();
+}
+
+// ════════════════════════════
+//  RACE RESULT
+// ════════════════════════════
+function showRaceResult(){
+  const {odds,coins,total}=calcOdds();
+  const sorted=[...raceResults].sort((a,b)=>b.correct-a.correct||a.wrong-b.wrong);
+  const raceLabel=RACE_CONFIG[curRace].label;
+
+  // save
+  allRaceResults.push({raceLabel,horses:raceHorses,sorted,odds,raceBets:JSON.parse(JSON.stringify(raceBets))});
+
+  document.getElementById('rr-title').textContent=`🏆 ${raceLabel} 結果`;
+
+  // podium
+  buildPodium(sorted,'rr-podium');
+
+  // table
+  const tbody=document.getElementById('rr-tbody');
+  tbody.innerHTML='';
+  sorted.forEach((r,i)=>{
+    const h=raceHorses[r.horseIdx];
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}位`;
+    const rc=i===0?'r1':i===1?'r2':i===2?'r3':'';
+    tbody.innerHTML+=`<tr class="${rc}">
+      <td>${medal}</td><td><strong>${h.name}</strong></td>
+      <td>${r.correct}問</td><td>${odds[r.horseIdx]}</td>
+    </tr>`;
+  });
+
+  // payout（単勝）
+  const winnerIdx=sorted[0].horseIdx;
+  const winnerOdds=parseFloat(odds[winnerIdx])||0;
+  const winHorse=raceHorses[winnerIdx];
+  document.getElementById('rr-pay-info').innerHTML=
+    `🏆 1着: <span class="tag tag-g">${winHorse.name}</span> オッズ <span class="tag tag-g">${odds[winnerIdx]}</span>`;
+
+  let payRows='';
+  for(let t=0;t<TEAM_COUNT;t++){
+    const bets=raceBets[t]||{};
+    let betTotal=0; // このレースで賭けたコイン合計
+    let winPayout=0; // 当たった配当
+    Object.entries(bets).forEach(([hi,c])=>{
+      if(!c||c<=0) return;
+      betTotal+=c;
+      const hi2=parseInt(hi);
+      const isWin=hi2===winnerIdx;
+      if(isWin) winPayout=Math.round(c*winnerOdds);
+    });
+    // 所持コイン更新：賭けた分を引いて、当たった配当を加える
+    teamHoldings[t] = teamHoldings[t] - betTotal + winPayout;
+
+    Object.entries(bets).forEach(([hi,c])=>{
+      if(!c||c<=0) return;
+      const hi2=parseInt(hi);
+      const isWin=hi2===winnerIdx;
+      const grossPayout=isWin?Math.round(c*winnerOdds):0;
+      const netGain=grossPayout-c; // 実際に増えた枚数（当たり：配当-賭け金、ハズレ：-賭け金）
+      const cell=isWin
+        ? `<span class="win-cell">🏆 +${netGain}枚</span>`
+        : `<span class="lose-cell">ハズレ（-${c}枚）</span>`;
+      payRows+=`<tr><td>${t+1}班</td><td>${raceHorses[hi2].name}</td><td>${c}枚</td><td>${cell}</td></tr>`;
+    });
+    // 賭けなかった班も表示しない（すっきり）
+  }
+  document.getElementById('rr-pay-tbody').innerHTML=payRows||'<tr><td colspan="4" style="text-align:center;color:var(--text-dim)">投票データなし</td></tr>';
+
+  // total coins board
+  buildCoinsBoard('total-coins-board');
+
+  // next button
+  const btnRow=document.getElementById('rr-btn-row');
+  const isLast=curRace>=RACE_CONFIG.length-1;
+  btnRow.innerHTML=isLast
+    ? `<button class="btn btn-gold" onclick="showFinalResult()">🏆 全体結果へ →</button>`
+    : `<button class="btn btn-gold" onclick="nextRace()">次のレースへ →</button>`;
+
+  setScreen('rresult');
+  launchConfetti();
+}
+
+function buildPodium(sorted,elId){
+  const el=document.getElementById(elId);
+  if(!el) return;
+  const order=[sorted[1],sorted[0],sorted[2]];
+  const labels=['🥈','🥇','🥉'],cls=['p2','p1','p3'];
+  const horses=raceHorses; // closure
+  el.innerHTML=order.map((r,i)=>{
+    if(!r) return `<div class="p-item ${cls[i]}"><div class="p-block">-</div></div>`;
+    const h=horses[r.horseIdx];
+    return `<div class="p-item ${cls[i]}">
+      <div class="p-name">${h.name}</div>
+      <div class="p-score">${r.correct}問正解</div>
+      <div class="p-block">${labels[i]}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildCoinsBoard(elId){
+  const el=document.getElementById(elId);
+  if(!el) return;
+  const sorted=[...teamHoldings.map((c,i)=>({team:i+1,coins:c}))].sort((a,b)=>b.coins-a.coins);
+  const max=Math.max(...sorted.map(s=>s.coins),1);
+  el.innerHTML=sorted.map((s,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;margin:5px 0">
+      <div style="width:28px;text-align:right;color:var(--text-dim);font-size:.8rem">${s.team}班</div>
+      <div style="flex:1;background:rgba(255,255,255,.06);border-radius:4px;height:20px;overflow:hidden">
+        <div style="height:100%;background:${i===0?'var(--gold)':'rgba(74,171,74,.6)'};width:${Math.max(s.coins/max*100,0)}%;border-radius:4px;transition:width .5s"></div>
+      </div>
+      <div style="width:54px;text-align:right;font-weight:700;color:${i===0?'var(--gold)':'#e6edf3'}">${s.coins}枚</div>
+    </div>`).join('');
+}
+
+function nextRace(){
+  curRace++;
+  startRaceSetup();
+}
+
+// ════════════════════════════
+//  FINAL RESULT
+// ════════════════════════════
+function showFinalResult(){
+  // ① 班別ランキング作成
+  const teamRanking = teamHoldings.map((coins,i)=>({
+    team: i+1,
+    coins: coins,
+    gain: coins - COINS_EACH
+  })).sort((a,b)=>b.coins-a.coins);
+
+  // ② 優勝班
+  const winner = teamRanking[0];
+  document.getElementById('final-champ-team').textContent = `${winner.team}班`;
+  document.getElementById('final-champ-coins').textContent = winner.coins;
+
+  // ③ 班別ランキングテーブル
+  const teamTbody = document.getElementById('final-team-tbody');
+  teamTbody.innerHTML = '';
+  teamRanking.forEach((t,i)=>{
+    const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}位`;
+    const rc = i===0?'r1':i===1?'r2':i===2?'r3':'';
+    const gainStr = t.gain>=0?`+${t.gain}`:`${t.gain}`;
+    const gainColor = t.gain>0?'color:var(--green-light)':t.gain<0?'color:var(--red)':'';
+    teamTbody.innerHTML += `<tr class="${rc}">
+      <td>${medal}</td>
+      <td><strong>${t.team}班</strong></td>
+      <td style="color:var(--gold);font-weight:700">${t.coins}枚</td>
+      <td class="dim">${COINS_EACH}枚</td>
+      <td style="${gainColor};font-weight:700">${gainStr}</td>
+    </tr>`;
+  });
+
+  // ④ 出走馬サマリー（従来通り）
+  const tbody = document.getElementById('final-tbody');
+  tbody.innerHTML = '';
+  allRaceResults.forEach(rr=>{
+    const s = rr.sorted;
+    const n = (idx)=>s[idx]?rr.horses[s[idx].horseIdx].name+`(${s[idx].correct}問)`:'---';
+    tbody.innerHTML += `<tr>
+      <td>${rr.raceLabel}</td>
+      <td class="r1"><strong>${n(0)}</strong></td>
+      <td>${s[0]?.correct||0}問</td>
+      <td class="r2">${n(1)}</td>
+      <td class="r3">${n(2)}</td>
+    </tr>`;
+  });
+
+  setScreen('final');
+  launchConfetti(true);
+}
+
+// ════════════════════════════
+//  UTILS
+// ════════════════════════════
+function setScreen(name){
+  const map={opening:'scr-opening',setup:'scr-setup',roulette:'scr-roulette',bet:'scr-bet',race:'scr-race',rresult:'scr-rresult',final:'scr-final'};
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(map[name]).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function launchConfetti(big=false){
+  const colors=['#f5c518','#ff6b35','#4aab4a','#ff6b6b','#6b9fff','#fff','#ff85d4'];
+  const el=document.getElementById('confetti');
+  el.innerHTML='';
+  const n=big?120:70;
+  for(let i=0;i<n;i++){
+    const c=document.createElement('div');
+    c.className='cp';
+    c.style.cssText=`left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};--d:${1.4+Math.random()*2}s;--dl:${Math.random()*1.8}s;--r:${Math.random()*720-360}deg`;
+    el.appendChild(c);
+  }
+  setTimeout(()=>el.innerHTML='',big?8000:5000);
+}
+
+function restartAll(){
+  curRace=0;
+  teamHoldings=Array(TEAM_COUNT).fill(COINS_EACH);
+  allRaceResults=[];
+  buildRaceTabs();
+  startRaceSetup();
+}
+
+// ── START ──
+// init()はオープニング動画終了後に呼ばれる
+</script>
+</body>
+</html>
